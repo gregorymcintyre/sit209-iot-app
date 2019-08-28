@@ -1,0 +1,30 @@
+View Post
+Subscribe
+Unsubscribe
+Next
+IoT Kelp Farming to help fix Climate Change Not flagged - Click to flag		Profile image for GREG MCINTYRE	IoT Kelp Farming to help fix Climate Change
+GREG MCINTYRE 18 August, 2019 12:01 PM Last Edited: 18 August, 2019 12:10 PM	 
+https://theconversation.com/how-farming-giant-seaweed-can-feed-fish-and-fix-the-climate-81761
+
+https://blogs.scientificamerican.com/observations/soil-and-seaweed-farming-our-way-to-a-climate-solution/
+
+https://oceana.org/blog/seaweed-could-be-scrubbing-way-more-carbon-atmosphere-we-expected
+
+https://carboninstitute.org/kelp-and-carbon-sequestration-bringing-terrestrial-carbon-accounting-to-the-deep-sea/
+
+Climate change is going to be an issue by 2040. We are past the tipping point with the amount of carbon that has been released into the atmosphere and it is no longer viable to just stop carbon emissions, we also need to begin claiming carbon back. Bull kelp is the fastest growing plant on earth, it can reclaim carbon, reduce acidity levels in the water, provide food and shelter for marine life and also provide a viable food source for humans.
+
+https://www.fastcompany.com/40458564/could-these-robotic-kelp-farms-give-us-an-abundant-source-of-carbon-neutral-fuel
+
+there is a concept to create frames of kelp farms that float just below the surface and constantly pushed down by the weight of the kelp to keep it below the surface but, as anyone who has any experience with SCUBA knows, pressure changes at depth and the amount of buoyancy/water displacement will required will require management, the kelp requires a certain temperature of water to remain healthy so an independent pump with its own buoyancy control will also be required, weight monitoring sensor will be useful for knowing when forests should be harvested/managed, location tracking will be important for management during storms and other emergencies.
+
+this project will create an IoT net workable monitoring system for floating kelp forests. expected parts include;
+
+pressure sensors, mass sensors, temperature sensors, gps?
+Local node to collect and process data.
+API and Server to coordinate.
+Cloud services to store data and ensure persistence.
+GUI for presenting forest status.
+Notification services when variables are outside safe limits (too shallow, too hot, other)
+This maybe too large to create in 4 weeks, but we could focus on one or two sensors and allow for future development.
+
