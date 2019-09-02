@@ -1,32 +1,20 @@
 /*------------------------------------------------------------------------------ 
-Program:      mqtt_node_arduino 
+Program:      KelpFarmControlDevice
 
-Description:  Basic MQTT node using Arduino Uno development board equipped with 
-              an Ethernet shield (W500). The MQTT node actes acts both a MQTT
-              publisher and subscriber - publish local sensor 
-              readings (temperature and humidity) to MQTT topics and gets commands
-              through a subscription to another MQTT topic.
+Description:  Basic MQTT node using Arduino Uno
 
 Hardware:     Arduino Uno R3, Ethernet Shield (W5100), DHT11.
-              Should work with other Arduinos 
 
 Software:     Developed using Arduino 1.8.5 IDE
 
-Libraries:    
-              - Adafruit Unified Sensor Driver: 
-                https://github.com/adafruit/Adafruit_Sensor
-              - DHT-sensor-library: 
-                https://github.com/adafruit/DHT-sensor-library
-              - Arduino Client for MQTT:
-                https://github.com/knolleary/pubsubclient
+Libraries:    -PubSubClient
+              -SPI
+              -Ethernet
+              -DHT
               
-References: 
-              - DHT11 datasheet: http://www.micropik.com/PDF/dht11.pdf
-              - Arduino Client for MQTT:https://pubsubclient.knolleary.net/
-              
-Date:         Febryary 18, 2018
+Date:         2/9/2019
 
-Author:       G. Gainaru, https://www.arduinolab.net
+Author:       Greg McIntyre
 ------------------------------------------------------------------------------*/
 
 #include <SPI.h>
@@ -34,9 +22,16 @@ Author:       G. Gainaru, https://www.arduinolab.net
 #include <PubSubClient.h>
 #include <DHT.h>
 
-#define ARDUINO_CLIENT_ID "arduino_1"                     // Client ID for Arduino pub/sub
-#define PUB_TEMP "arduino_1/sensor/temperature_celsius"   // MTTQ topic for temperature [C]
-#define PUB_HUMID "arduino_1/sensor/humidity"             // MTTQ topic for humidity
+#define ARDUINO_CLIENT_ID "arduino_1"                         // Client ID for Arduino pub/sub
+
+#define PUB_LOC "arduino_1/location"                          //
+#define PUB_TIME "arduino_1/sensorData/time"                  // MTTQ topic for temperature [C]
+#define PUB_TEMP "arduino_1/sensorData/temperature_celsius"   // MTTQ topic for temperature [C]
+#define PUB_LIGHT "arduino_1/sensorData/light"                //
+#define PUB_PRESSURE "arduino_1/sensorData/pressure"          //
+#define PUB_BOUYANCY "arduino_1/sensorData/bouyancy"          //
+
+
 #define SUB_LED "arduino_1/led"                           // MTTQ topic for LED
 #define PUBLISH_DELAY 3000                                // Publishing delay [ms]
 
@@ -55,9 +50,6 @@ const int sensorType = DHT11;
 // Networking details
 byte mac[]    = {  0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x02 };  // Ethernet shield (W5100) MAC address
 IPAddress ip(192, 168, 20, 7);                           // Ethernet shield (W5100) IP address
-IPAddress server(192, 168, 20, 6);                       // MTTQ server IP address
-
-
 
 DHT dht(sensorPin, sensorType);
 EthernetClient ethClient;
@@ -88,31 +80,43 @@ void setup()
 
 void loop()
 {
+
+  float timeStamp = 1.0;   //
+  
   if (!client.connected())
     reconnect();
 
   if (millis() - previousMillis > PUBLISH_DELAY)
   {
     previousMillis = millis();
-    float humidity = 10; // humidity
-    float tempC = 11; // temperature [C]
+    
+    
+    char loc[] = "Brisbane";          //
+    float tempC = 21;                 // temperature [C]
+    float light = 5;                  // 
+    float pressure = 1.0;             // 
+    float bouyancy = 1.1;             // 
+
     char tmpBuffer[20];
 
     // check if any reads failed and exit early (to try again).
-    if (isnan(humidity) || isnan(tempC))
+    if (isnan(light) || isnan(tempC))
     {
       Serial.println("error reading sensor data");
       return;
     }
     else
     {
-      Serial.print("[sensor data] temperature[C]: ");
-      Serial.print(tempC);
-      Serial.print(", humidity: ");
-      Serial.println(humidity);
-
+      client.publish(PUB_LOC , loc);
+      client.publish(PUB_TIME , dtostrf(timeStamp, 6, 2, tmpBuffer));
       client.publish(PUB_TEMP, dtostrf(tempC, 6, 2, tmpBuffer));
-      client.publish(PUB_HUMID, dtostrf(humidity, 6, 2, tmpBuffer));
+      client.publish(PUB_LIGHT , dtostrf(light, 6, 2, tmpBuffer));            
+      client.publish(PUB_PRESSURE , dtostrf(pressure, 6, 2, tmpBuffer));
+      client.publish(PUB_BOUYANCY , dtostrf(bouyancy, 6, 2, tmpBuffer));
+
+      timeStamp++;
+      Serial.println("data sent");
+
     }
   }
 
@@ -128,7 +132,7 @@ void reconnect()
     if (client.connect(ARDUINO_CLIENT_ID, USERNAME, PASSWORD)) {
       Serial.println("connected");
       // (re)subscribe
-      client.subscribe(SUB_LED);
+      //client.subscribe(SUB_LED);
     } else {
       Serial.print("Connection failed, state: ");
       Serial.print(client.state());
