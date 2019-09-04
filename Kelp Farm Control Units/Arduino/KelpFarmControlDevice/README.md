@@ -23,20 +23,16 @@ Author:       Greg McIntyre
 
 ##Directions for use
 
-- make sure reflects an appropriate ip address for the device
+- make sure `ip` reflects an appropriate ip address for the device
  `IPAddress ip(192, 168, 20, 7); ` 
 
 - update to reflect unique identifier for your control unit (eg. arduino_2)
 
-```#define PUB_LOC "arduino_1/location"                          //
-#define PUB_TIME "arduino_1/sensorData/time"                  // MTTQ topic for temperature [C]
-#define PUB_TEMP "arduino_1/sensorData/temperature_celsius"   // MTTQ topic for temperature [C]
-#define PUB_LIGHT "arduino_1/sensorData/light"                //
-#define PUB_PRESSURE "arduino_1/sensorData/pressure"          //
-#define PUB_BOUYANCY "arduino_1/sensorData/bouyancy"          //
+```#define PUB_LOC "arduino_1/location"
+#define PUB_TIME "arduino_1/sensorData/time"
+#define PUB_TEMP "arduino_1/sensorData/temperature_celsius"
+#define PUB_LIGHT "arduino_1/sensorData/light"
+#define PUB_PRESSURE "arduino_1/sensorData/pressure"
+#define PUB_BOUYANCY "arduino_1/sensorData/bouyancy"
 
-
-#define SUB_LED "arduino_1/led"                           // MTTQ topic for LED```
-
-
-
+#define SUB_LED "arduino_1/led"```
