@@ -6,7 +6,7 @@ const client = mqtt.connect("mqtt://soldier.cloudmqtt.com:15615", {
 });
 
 client.on('connect', () => {
-  client.subscribe('/#');
+  client.subscribe('#');
   console.log('connected');
 });
 
