@@ -24,18 +24,18 @@ Author:       Greg McIntyre
 
 #define ARDUINO_CLIENT_ID "arduino_1"                         // Client ID for Arduino pub/sub
 
-#define PUB_LOC "arduino_1/location"                          //
-#define PUB_TIME "arduino_1/sensorData/time"                  // MTTQ topic for temperature [C]
+#define PUB_LOC "arduino_1/location"                          // MTTQ topic for location (string)
+#define PUB_TIME "arduino_1/sensorData/time"                  // MTTQ topic for time
 #define PUB_TEMP "arduino_1/sensorData/temperature_celsius"   // MTTQ topic for temperature [C]
-#define PUB_LIGHT "arduino_1/sensorData/light"                //
-#define PUB_PRESSURE "arduino_1/sensorData/pressure"          //
-#define PUB_BOUYANCY "arduino_1/sensorData/bouyancy"          //
+#define PUB_LIGHT "arduino_1/sensorData/light"                // MTTQ topic for light
+#define PUB_PRESSURE "arduino_1/sensorData/pressure"          // MTTQ topic for pressure [atm]
+#define PUB_BOUYANCY "arduino_1/sensorData/bouyancy"          // MTTQ topic for bouyancy
 
 
 #define SUB_LED "arduino_1/led"                           // MTTQ topic for LED
 #define PUBLISH_DELAY 3000                                // Publishing delay [ms]
 
-#define SERVER "soldier.cloudmqtt.com"
+#define SERVER "soldier.cloudmqtt.com"                    //Kelp the World MQTT server details
 #define PORT 15615
 #define USERNAME "qhwjeaqg"
 #define PASSWORD "Y1rsufr-Ij8i"
