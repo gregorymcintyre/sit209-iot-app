@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from "react";
 import { Devices, Events } from "./components";
 import './App.css';
-const API_URL = "XXXX";
+//const API_URL = "XXXX";
+const MQTT_URL = 'http://127.0.0.1:5001';
 // styling to follow
 
 class App extends Component { 
-
+  
   
   setState = {
-    sensorId : undefined,
+    deviceId : undefined,
     sensorName : undefined,
     array: undefined,
 
@@ -54,7 +55,7 @@ class App extends Component {
  
     getEvent = () =>
     {
-        fetch(API_URL)
+        fetch(`${MQTT_URL}/sensor-data`)
         .then(response => response.json())
         .then(data => {
           this.setState({
