@@ -10,8 +10,12 @@ class App extends Component {
   
   setState = {
     deviceId : undefined,
-    sensorName : undefined,
-    array: undefined,
+    ts: undefined,
+    loc: undefined,
+    light: undefined,
+    pressure: undefined,
+    bouyancy: undefined
+
 
 	}
 
@@ -38,11 +42,13 @@ class App extends Component {
         <div className= "App-content">
           <Fragment>
               <Devices
-              sensorId= {this.setState.sensorId}
-              sensorName= {this.setState.sensorName}/>
+              deviceId= {this.setState.deviceId}/>
               <Events
-              sensorId= {this.setState.sensorArray}
-              array= {this.setState.array}
+              deviceId= {this.setState.deviceArray}
+              loc=  {this.setState.loc}
+              light= {this.setState.light}
+              pressure = {this.setState.pressure}
+              bouyancy = {this.setState.bouyancy}
               />
           </Fragment>
             
@@ -59,8 +65,12 @@ class App extends Component {
         .then(response => response.json())
         .then(data => {
           this.setState({
-            sensorId:data.sensorId,
-            array:data.array
+            deviceId:data.deviceId,
+            ts:data.sensorData.ts,
+            loc:data.sensorData.loc,
+            light:data.ensorData.light,
+            pressure:data.sensorData.pressure,
+            bouyancy:data.sensorData.bouyancy,
           })
         })
 
@@ -68,16 +78,18 @@ class App extends Component {
     
     getDevice = () =>
     {
-        fetch(API_URL)
+        fetch(`${MQTT_URL}/sensor-data`)
         .then(response => response.json())
         .then(data => {
           this.setState({
-            sensorId:data.sensorId,
-            sensorName:data.sensorName,
+            deviceId:data.deviceId
           })
         })
 
     }
+       
+  
+
   
 }
   

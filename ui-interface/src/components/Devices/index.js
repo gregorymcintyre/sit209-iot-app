@@ -9,8 +9,11 @@ class Devices extends Component {
       console.log(this.props.devices)
       return (
     <div>
-       {this.props.sensorData && <p>Timestamp: {this.props.sensorData.timestamp}</p>}
-       {this.props.sensorName && <p>Name: {this.props.sensorData.sensorName}</p>}
+       {this.props.ts && <p>Timestamp: {this.props.ts}</p>}
+       {this.props.loc && <p>Location: {this.props.loc}</p>}
+       {this.props.light && <p>Light: {this.props.light}</p>}
+       {this.props.pressure && <p>Pressure: {this.props.pressure}</p>}
+       {this.props.bouyancy && <p>bouyancy: {this.props.bouyancy}</p>}
         
     </div>
 
