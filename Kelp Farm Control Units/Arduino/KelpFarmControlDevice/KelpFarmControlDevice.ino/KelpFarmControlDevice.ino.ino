@@ -25,6 +25,10 @@ Author:       Greg McIntyre
 #define ARDUINO_CLIENT_ID "arduino_1"                         // Client ID for Arduino pub/sub
 
 #define PUB_SENSORDATA "arduino_1/sensorData"                         // Client ID for Arduino pub/sub
+#define PUB_SD "arduino_1/sd"                         // Client ID for Arduino pub/sub
+#define PUB_SENSORDETAILS "arduino_1/sensorDetails"                         // Client ID for Arduino pub/sub
+
+
 #define PUB_LOC "arduino_1/location"                          // MTTQ topic for location (string)
 #define PUB_TIME "arduino_1/sensorData/time"                  // MTTQ topic for time
 #define PUB_TEMP "arduino_1/sensorData/temperature_celsius"   // MTTQ topic for temperature [C]
@@ -82,7 +86,7 @@ void setup()
 void loop()
 {
 
-  float timeStamp = 1.0;   //
+  float timeStamp = 1568330529936.0;   //
   
   if (!client.connected())
     reconnect();
@@ -93,6 +97,7 @@ void loop()
     
     
     char loc[] = "Brisbane";          //
+    int ts = 1568330529936;           //time stamp
     float tempC = 21;                 // temperature [C]
     float light = 5;                  // 
     float pressure = 1.0;             // 
@@ -108,18 +113,24 @@ void loop()
     }
     else
     {
-      //client.publish(PUB_LOC , loc);
-      //client.publish(PUB_TIME , dtostrf(timeStamp, 6, 2, tmpBuffer));
-      //client.publish(PUB_TEMP, dtostrf(tempC, 6, 2, tmpBuffer));
-      //client.publish(PUB_LIGHT , dtostrf(light, 6, 2, tmpBuffer));            
-      //client.publish(PUB_PRESSURE , dtostrf(pressure, 6, 2, tmpBuffer));
-      //client.publish(PUB_BOUYANCY , dtostrf(bouyancy, 6, 2, tmpBuffer));
+      client.publish(PUB_LOC , loc);
+      client.publish(PUB_TIME , dtostrf(timeStamp, 6, 2, tmpBuffer));
+      client.publish(PUB_TEMP, dtostrf(tempC, 6, 2, tmpBuffer));
+      client.publish(PUB_LIGHT , dtostrf(light, 6, 2, tmpBuffer));            
+      client.publish(PUB_PRESSURE , dtostrf(pressure, 6, 2, tmpBuffer));
+      client.publish(PUB_BOUYANCY , dtostrf(bouyancy, 6, 2, tmpBuffer));
 
       
       //client.publish(ARDUINO_CLIENT_ID ,  "ARDUINO_CLIENT_ID" );
 	    //client.publish(ARDUINO_CLIENT_ID ,  "{\"deviceId\":\"arduino_1\",\"sensorData\":{\"ts\":1568330529936,\"loc\":\"Brisbane\",\"light\":23,\"pressure\":8,\"bouyancy\":50}}" );
-      client.publish(PUB_SENSORDATA ,  "{\"deviceId\":\"arduino_1\",\"sensorData\":{\"ts\":1568330529936,\"loc\":\"Brisbane\",\"li\":23,\"pres\":8,\"bouy\":\"50}}");
-	  
+      client.publish(PUB_SD ,  "{\"deviceId\":\"arduino_1\",\"sensorData\":{\"ts\":1568330529936,\"loc\":\"Brisbane\",\"li\":23,\"pres\":8,\"bouy\":50}}");
+
+      //char message[] = "{\"deviceId\":\"" ARDUINO_CLIENT_ID "\"}";
+      //client.publish(PUB_SENSORDETAILS,  "{\"deviceId\":\"" ARDUINO_CLIENT_ID "\"}");
+      //char message[] = "{\"ts\":1568330529936,\"loc\":\"Brisbane\",\"li\":23,\"pres\":8,\"bouy\":\"50}";
+      //client.publish(PUB_SENSORDATA ,  "{\"ts\":1568330529936,\"loc\":\"Brisbane\",\"li\":23,\"pres\":8,\"bouy\":50}");
+	    
+	    //PUB_SENSORDETAILS
 
       timeStamp++;
       Serial.println("data sent");
