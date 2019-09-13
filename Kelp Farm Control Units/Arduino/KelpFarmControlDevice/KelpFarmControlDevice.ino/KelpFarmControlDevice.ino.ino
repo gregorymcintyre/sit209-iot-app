@@ -24,6 +24,7 @@ Author:       Greg McIntyre
 
 #define ARDUINO_CLIENT_ID "arduino_1"                         // Client ID for Arduino pub/sub
 
+#define PUB_SENSORDATA "arduino_1/sensorData"                         // Client ID for Arduino pub/sub
 #define PUB_LOC "arduino_1/location"                          // MTTQ topic for location (string)
 #define PUB_TIME "arduino_1/sensorData/time"                  // MTTQ topic for time
 #define PUB_TEMP "arduino_1/sensorData/temperature_celsius"   // MTTQ topic for temperature [C]
@@ -107,12 +108,18 @@ void loop()
     }
     else
     {
-      client.publish(PUB_LOC , loc);
-      client.publish(PUB_TIME , dtostrf(timeStamp, 6, 2, tmpBuffer));
-      client.publish(PUB_TEMP, dtostrf(tempC, 6, 2, tmpBuffer));
-      client.publish(PUB_LIGHT , dtostrf(light, 6, 2, tmpBuffer));            
-      client.publish(PUB_PRESSURE , dtostrf(pressure, 6, 2, tmpBuffer));
-      client.publish(PUB_BOUYANCY , dtostrf(bouyancy, 6, 2, tmpBuffer));
+      //client.publish(PUB_LOC , loc);
+      //client.publish(PUB_TIME , dtostrf(timeStamp, 6, 2, tmpBuffer));
+      //client.publish(PUB_TEMP, dtostrf(tempC, 6, 2, tmpBuffer));
+      //client.publish(PUB_LIGHT , dtostrf(light, 6, 2, tmpBuffer));            
+      //client.publish(PUB_PRESSURE , dtostrf(pressure, 6, 2, tmpBuffer));
+      //client.publish(PUB_BOUYANCY , dtostrf(bouyancy, 6, 2, tmpBuffer));
+
+      
+      //client.publish(ARDUINO_CLIENT_ID ,  "ARDUINO_CLIENT_ID" );
+	    //client.publish(ARDUINO_CLIENT_ID ,  "{\"deviceId\":\"arduino_1\",\"sensorData\":{\"ts\":1568330529936,\"loc\":\"Brisbane\",\"light\":23,\"pressure\":8,\"bouyancy\":50}}" );
+      client.publish(PUB_SENSORDATA ,  "{\"deviceId\":\"arduino_1\",\"sensorData\":{\"ts\":1568330529936,\"loc\":\"Brisbane\",\"li\":23,\"pres\":8,\"bouy\":\"50}}");
+	  
 
       timeStamp++;
       Serial.println("data sent");
