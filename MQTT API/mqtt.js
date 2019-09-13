@@ -33,7 +33,7 @@ const client = mqtt.connect("mqtt://soldier.cloudmqtt.com:15615", {
   password: "Y1rsufr-Ij8i"
 });
 
-const approved_devices = ['arduino_1', 'arduino_test'];
+const approved_devices = ['arduino_1','arduino_test'];
 const app = express();
 const port = 5001;
 
@@ -55,7 +55,7 @@ client.on('message', (topic, message) => {
   console.log(`Received message on ${topic}: ${message}`);
   var topic_split = topic.split("/");
   if (approved_devices.indexOf(topic_split[0]) >= 0) {
-    if (topic_split[1] == 'sensorData') {
+    if (topic_split[1] == 'sd') {
       const data = JSON.parse(message);
       Device.findOne({"deviceId": data.deviceId }, (err, device) => {
         if (err) {
@@ -63,8 +63,8 @@ client.on('message', (topic, message) => {
         } else if (!device) {
           console.log("Creating new device...");
           const {deviceId} = data;
-          const {ts, loc, light, pressure, bouyancy} = data.sensorData;
-          const sensorData = {ts, loc, light, pressure, bouyancy};
+          const {ts, loc, li, pres, bouy} = data.sensorData;
+          const sensorData = {ts, loc, li, pres, bouy};
           const newDevice = new Device({
             deviceId,
             sensorData
@@ -77,9 +77,9 @@ client.on('message', (topic, message) => {
           });
         } else {
           const { sensorData } = device;
-          const { ts, loc, light, pressure, bouyancy } = data.sensorData;
+          const { ts, loc, li, pres, bouy } = data.sensorData;
         
-          sensorData.push({ ts, loc, light, pressure, bouyancy });
+          sensorData.push({ ts, loc, li, pres, bouy });
           device.sensorData = sensorData;
         
           device.save(err => {
