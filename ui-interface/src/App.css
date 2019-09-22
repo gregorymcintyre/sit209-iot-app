@@ -26,3 +26,34 @@ align-items : center;
 justify-content : center;
 flex : 9;
 }
+
+.container-1 {
+  display: flex;
+  justify-content : space-around;
+  width: 400px;
+  margin: 20px 0;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #FF7F50 ;
+  }
+
+  .lightDashboard {
+    display: flex;
+    justify-content : space-around;
+    width: 200px;
+    height: 200px;
+    left:480px;
+    margin: 40px 0;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background-color: #FFA500 ;
+    }
+
+.Map-frame {
+  margin : 0 auto 0 auto;
+  align-items : center;
+  justify-content : center;
+  padding-left: 200px;
+  flex : 9;
+
+}

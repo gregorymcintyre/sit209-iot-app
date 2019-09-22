@@ -1,95 +1,62 @@
 import React, { Component, Fragment } from "react";
-import { Devices, Events } from "./components";
+import { Devices, Events, Navbar, DeviceList } from "./components";
 import './App.css';
-//const API_URL = "XXXX";
-const MQTT_URL = 'http://127.0.0.1:5001';
-// styling to follow
+import "bootstrap/dist/css/bootstrap.min.css";
+import {BrowserRouter as Router, Route } from "react-router-dom";
+import { Header, Icon } from 'semantic-ui-react'
+import Map from 'pigeon-maps'
+import Marker from 'pigeon-marker'
+import axios from 'axios';
+import {Link } from 'react-router-dom';
 
+
+const MQTT_URL = 'http://127.0.0.1:5001';
 class App extends Component { 
   
-  
-  setState = {
-    deviceId : undefined,
-    ts: undefined,
-    loc: undefined,
-    light: undefined,
-    pressure: undefined,
-    bouyancy: undefined
-
-
-	}
 
   
+
   render () {
    
     return (
-        <div className = "App">
-          <header className = "App-header">
-              <h1>
-                Kelp The World
-              </h1>
-
-            <input type="button"
-              onClick={this.getDevice}
-              value={'Devices'}/>
-
-             <input type="button"
-              onClick={this.getEvent}
-              value={'Events'}/>
-
-        </header>
+        <Router>
+        <div className = "container">
+              
+                <div>
+                <Header as='h2' icon textAlign='center'>
+                  <Icon name='users' circular />
+                  <Header.Content>Kelp The World</Header.Content>
+                </Header>
+                 </div>
         
-        <div className= "App-content">
-          <Fragment>
-              <Devices
-              deviceId= {this.setState.deviceId}/>
-              <Events
-              deviceId= {this.setState.deviceArray}
-              loc=  {this.setState.loc}
-              light= {this.setState.light}
-              pressure = {this.setState.pressure}
-              bouyancy = {this.setState.bouyancy}
-              />
-          </Fragment>
-            
-        </div>
-      </div>
+        <nav className="navbar navbar-dark bg-dark">
+        <Link to="/" className = "navbar-brand">KTW</Link>
+        
+        <ul className="navbar-nav mr-auto">
+          <li className="navbar-item">
+        <Link to="/" className = "nav-link">Home</Link>
+            </li>
+            <li className="navbar-item">
+        <Link to="/deviceList" className = "nav-link">Devices</Link>
+            </li>
+        
+         </ul>
+         </nav>
+         <br/>
+         <Route path="/" exact component={Events}/>
+         <Route path="/deviceList" component ={Devices}/>
 
+
+       </div>
+    </Router>
     )
   }
 
- 
-    getEvent = () =>
-    {
-        fetch(`${MQTT_URL}/sensor-data`)
-        .then(response => response.json())
-        .then(data => {
-          this.setState({
-            deviceId:data.deviceId,
-            ts:data.sensorData.ts,
-            loc:data.sensorData.loc,
-            light:data.ensorData.light,
-            pressure:data.sensorData.pressure,
-            bouyancy:data.sensorData.bouyancy,
-          })
-        })
 
-    }
     
-    getDevice = () =>
-    {
-        fetch(`${MQTT_URL}/sensor-data`)
-        .then(response => response.json())
-        .then(data => {
-          this.setState({
-            deviceId:data.deviceId
-          })
-        })
-
-    }
+    
        
-  
-
+   
   
 }
   
