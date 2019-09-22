@@ -12,11 +12,15 @@
     "react-bootstrap": "^1.0.0-beta.12",
     "react-datepicker": "^2.9.6",
     "react-dom": "^16.9.0",
+<<<<<<< HEAD
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "semantic-ui": "^2.4.2",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1"
+=======
+    "react-scripts": "^3.1.1"
+>>>>>>> 8a53f79763b0ca229a9b68ecfcc69973698df0b6
   },
   "scripts": {
     "start": "react-scripts start",
