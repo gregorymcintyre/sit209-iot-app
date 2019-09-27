@@ -33,7 +33,7 @@ const client = mqtt.connect("mqtt://soldier.cloudmqtt.com:15615", {
   password: "Y1rsufr-Ij8i"
 });
 
-const approved_devices = ['arduino_test'];
+const approved_devices = ['arduino_1', 'arduino_test'];
 const app = express();
 const port = 5001;
 
