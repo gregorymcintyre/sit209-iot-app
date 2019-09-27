@@ -1,7 +1,6 @@
 {
   "name": "mqtt-api",
   "version": "1.0.0",
-  "description": "",
   "main": "mqtt.js",
   "scripts": {
     "start": "nodemon -r dotenv/config mqtt.js"
@@ -18,6 +17,7 @@
   },
   "devDependencies": {
     "dotenv": "^8.1.0",
-    "nodemon": "^1.19.1"
-  }
+    "nodemon": "^1.19.2"
+  },
+  "description": ""
 }
